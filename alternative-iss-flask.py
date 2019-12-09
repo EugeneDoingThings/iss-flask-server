@@ -11,18 +11,17 @@ GPIO.setup(channel, GPIO.OUT)
 
 
 def relay_on(pin):
-    GPIO.output(pin, GPIO.HIGH)  # Замыкает реле
+    GPIO.output(pin, GPIO.HIGH)
 
 
 def relay_off(pin):
-    GPIO.output(pin, GPIO.LOW)  # Размыкает реле
+    GPIO.output(pin, GPIO.LOW)
 
 
 @app.route('/open', methods=["POST"])
 def post():
-    print(request.data)
     relay_on(channel)
-    time.sleep(5)
+    time.sleep(1)
     relay_off(channel)
     time.sleep(1)
     GPIO.cleanup()
