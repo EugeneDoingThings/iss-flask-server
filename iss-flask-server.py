@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_basicauth import BasicAuth
 import requests
 
 # import RPi.GPIO as GPIO
@@ -20,14 +21,15 @@ app = Flask(__name__)
 # def relay_off(pin):
 # GPIO.output(pin, GPIO.LOW)
 
-URL = 'http://localhost/me'
+app.config['BASIC_AUTH_USERNAME'] = 'iss'
+app.config['BASIC_AUTH_PASSWORD'] = 'ujkjdjyju'
+
+basic_auth = BasicAuth(app)
 
 
 @app.route('/open', methods=["POST"])
+@basic_auth.required
 def post():
-    token = request.headers['x-auth-token']
-    response = requests.get(url=URL, headers={'x-auth-token': token}).content
-    print(response)
 
     # relay_on(channel)
     # time.sleep(5)
